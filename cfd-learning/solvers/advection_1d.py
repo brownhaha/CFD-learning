@@ -13,11 +13,25 @@ class AdvectionConfig:
     speed: float = 1.0
     cfl: float = 0.8
     final_time: float = 1.0
+    initial: str = "gaussian"
 
 
 def initial_condition(x: np.ndarray) -> np.ndarray:
     """A smooth pulse on a periodic domain."""
     return np.exp(-200.0 * (x - 0.3) ** 2)
+
+
+def square_wave_initial_condition(x: np.ndarray) -> np.ndarray:
+    """A discontinuous square pulse on a periodic domain."""
+    return np.where((x >= 0.2) & (x <= 0.4), 1.0, 0.0)
+
+
+def make_initial_condition(x: np.ndarray, name: str) -> np.ndarray:
+    if name == "gaussian":
+        return initial_condition(x)
+    if name == "square":
+        return square_wave_initial_condition(x)
+    raise ValueError(f"Unknown initial condition: {name}")
 
 
 def step_upwind_periodic(u: np.ndarray, config: AdvectionConfig, dt: float, dx: float) -> np.ndarray:
@@ -34,7 +48,7 @@ def step_upwind_periodic(u: np.ndarray, config: AdvectionConfig, dt: float, dx: 
 def solve(config: AdvectionConfig) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     dx = config.length / config.nx
     x = (np.arange(config.nx) + 0.5) * dx
-    u0 = initial_condition(x)
+    u0 = make_initial_condition(x, config.initial)
     u = u0.copy()
 
     dt = config.cfl * dx / abs(config.speed)
@@ -66,4 +80,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

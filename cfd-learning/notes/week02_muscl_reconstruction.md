@@ -238,3 +238,50 @@ python .\cfd-learning\scripts\diagnose_peak_error.py --save
 核心判断：
 
 > 耗散看波有没有被抹平；相位误差看波有没有跑错位置。一个格式可能峰值看起来还行，但位置错了；也可能位置对了，但幅值被吃掉。
+
+## 8. 不同 limiter 的性格
+
+MUSCL 的关键是给每个 cell 估计斜率：
+
+$$
+\sigma_i.
+$$
+
+不同 limiter 本质上是在决定：
+
+> 这个斜率应该保留多少，应该压低多少。
+
+常见 limiter 的直觉排序：
+
+```text
+minmod   -> 最保守，最稳，耗散较大
+MC       -> 折中，通常比 minmod 更少耗散
+van Leer -> 平滑，斜率过渡较柔和
+Superbee -> 锐利，低耗散，但更激进
+```
+
+比较脚本：
+
+```powershell
+python .\cfd-learning\scripts\compare_limiters.py
+python .\cfd-learning\scripts\compare_limiters.py --ic square
+```
+
+只有需要保存 PNG 时才使用：
+
+```powershell
+python .\cfd-learning\scripts\compare_limiters.py --save
+python .\cfd-learning\scripts\compare_limiters.py --ic square --save
+```
+
+诊断表会列出：
+
+- `L1`：全局平均绝对误差。
+- `u_peak`：波峰高度。
+- `amp_du`：波峰幅值误差，主要反映耗散。
+- `phase_dx`：波峰位置误差，主要反映相位误差。
+
+其中：
+
+- `--ic gaussian` 用于光滑波包，主要观察耗散和相位误差。
+- `--ic square` 用于间断方波，主要观察保边能力、间断厚度和是否出现过冲/欠冲。

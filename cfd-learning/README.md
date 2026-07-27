@@ -75,6 +75,15 @@ python .\cfd-learning\scripts\diagnose_peak_error.py
 python .\cfd-learning\scripts\diagnose_peak_error.py --save
 ```
 
+比较不同 MUSCL limiter：
+
+```powershell
+python .\cfd-learning\scripts\compare_limiters.py
+python .\cfd-learning\scripts\compare_limiters.py --ic square
+python .\cfd-learning\scripts\compare_limiters.py --save
+python .\cfd-learning\scripts\compare_limiters.py --ic square --save
+```
+
 打开 CFL 动态演化窗口：
 
 ```powershell
@@ -90,4 +99,5 @@ python .\cfd-learning\scripts\animate_cfl_advection.py --save
 ## 学习存档
 
 - `cfd-learning/notes/latest_checkpoint.md`：最新学习断点。
+- `cfd-learning/notes/roadmap_progress.md`：三个月路线、当前进度和后续计划。
 - `cfd-learning/notes/day02_muscl_error_archive.md`：MUSCL、耗散误差、相位误差和下一步 limiter 对比计划。
