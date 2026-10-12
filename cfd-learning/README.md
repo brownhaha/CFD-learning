@@ -9,6 +9,7 @@
 - `scripts/`：绘图、动画和验证脚本。
 - `figures/`：笔记中使用的生成图片和动画。
 - `outputs/`：求解器输出的数据文件。
+- `skills/`：可随仓库同步并安装到 Codex 的学习辅导 Skill。
 
 ## 继续学习前先读
 
@@ -19,6 +20,27 @@ cfd-learning/notes/learning_context.md
 ```
 
 这个文件记录了学习目标、讲解约定、当前进度和下一步入口。
+
+还应阅读最新断点：
+
+```text
+cfd-learning/notes/latest_checkpoint.md
+```
+
+## 在新机器安装学习 Skill
+
+拉取仓库后，在 PowerShell 中执行：
+
+```powershell
+New-Item -ItemType Directory -Force "$HOME\.codex\skills\cfd-learning-memory"
+Copy-Item ".\cfd-learning\skills\cfd-learning-memory\SKILL.md" "$HOME\.codex\skills\cfd-learning-memory\SKILL.md" -Force
+```
+
+重新打开 Codex 后，可以这样续学：
+
+```text
+$cfd-learning-memory 请读取 cfd-learning/notes/latest_checkpoint.md，继续辅导我学习 CFD。
+```
 
 ## 第一周
 

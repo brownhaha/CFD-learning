@@ -188,25 +188,35 @@ Linf error  = 1.546376e-01
 - 波峰降低、波形变宽。
 - 这说明一阶迎风格式稳定，但有明显数值耗散。
 
-## 7. 下一次继续的建议入口
+## 7. 后续已完成进度
+
+在第一课之后，已经继续完成：
+
+- 数值耗散、相位误差和 `L1` 误差的区分。
+- MUSCL 线性重构，以及 minmod、MC、van Leer、Superbee limiter 对比。
+- TVD RK2 时间推进。
+- 求解器中“状态 -> 重构 -> 数值通量 -> 残差 -> 时间推进 -> 验证”的整体结构。
+- MUSCL 界面重构与 Rusanov/HLL/HLLC 数值通量的职责区分。
+- 一维 Euler 方程守恒变量、物理通量和静止流体通量。
+- CFD 软件未来趋势及 AI-CFD 双轨学习路线的初步研究。
+
+最新的掌握评估、薄弱点和诊断题以 `notes/latest_checkpoint.md` 为准。本文件保留长期背景，断点文件记录每次课的最新位置。
+
+## 8. 下一次继续的建议入口
 
 下一次对话可以直接从这里开始：
 
 ```text
-继续 CFD 学习。请先读取 cfd-learning/notes/learning_context.md，
-然后从 CFL 为什么影响稳定性开始讲。
+使用 $cfd-learning-memory。请先读取
+cfd-learning/notes/learning_context.md 和
+cfd-learning/notes/latest_checkpoint.md，
+让我先完成断点中的诊断题，再根据错误继续学习。
 ```
 
 或者更短：
 
 ```text
-继续第一课，从 CFL 稳定性开始。
+从最新学习断点继续 CFD 学习。
 ```
 
-下一节建议内容：
-
-1. 为什么 \(\mathrm{CFL}\le 1\) 时是一种正常加权平均。
-2. 为什么 \(\mathrm{CFL}>1\) 时变成外推，容易放大误差。
-3. 用简单数值例子解释振荡和发散。
-4. 对比不同 CFL 下的数值结果。
-5. 连接到真实 CFD 中的局部波速和时间步限制。
+下一节建议内容：声速、Euler 特征速度、Rusanov 数值通量和 Sod 激波管。
